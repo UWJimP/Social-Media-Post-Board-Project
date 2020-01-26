@@ -1,0 +1,7 @@
+<div class="row">
+    <div class="col-12">
+        <app-post-item *ngFor="let postElement of posts; let i = index"
+        [post]="postElement"
+        [index]="i"></app-post-item>
+    </div>
+</div>
