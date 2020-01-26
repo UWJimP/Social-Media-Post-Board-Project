@@ -11,6 +11,7 @@ import { AuthComponent } from './auth/auth.component';
 import { PostListComponent } from './post-board/post-list/post-list.component';
 import { PostBoardService } from './post-board/post-board.service';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
     CommonModule,
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule
   ],
   providers: [PostBoardService],
   bootstrap: [AppComponent]
