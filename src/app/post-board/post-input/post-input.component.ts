@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Post } from '../post.model';
+import { PostBoardService } from '../post-board.service';
 
 @Component({
   selector: 'app-post-input',
@@ -10,11 +12,16 @@ export class PostInputComponent implements OnInit {
 
   message: string;
   postForm: FormGroup;
+  formTouched = false;
 
-  constructor() { }
+  constructor(private postService: PostBoardService) { }
 
   ngOnInit() {
     this.initialForm();
+  }
+
+  formValid() {
+    return this.postForm.valid && this.formTouched;
   }
 
   /**
@@ -23,8 +30,9 @@ export class PostInputComponent implements OnInit {
   private initialForm() {
     let message = "Please enter a message."
     this.postForm = new FormGroup({
-      message: new FormControl(message)
+      message: new FormControl(message, Validators.required)
     });
+    this.formTouched = false;
   }
 
   /**
@@ -34,7 +42,21 @@ export class PostInputComponent implements OnInit {
   onMessageClick() {
     this.message = "";
     this.postForm = new FormGroup({
-      message: new FormControl(this.message)
+      message: new FormControl(this.message, Validators.required)
     });
+    this.formTouched = true;
+  }
+
+  /**
+   * Used when the user press enter while entering a message.
+   * It will reset the box and send the message to the Post Service.
+   */
+  onMessageEnter(event) {
+    const post = new Post("First", "Last", this.postForm.value.message);
+    event.target.blur(); //Remove focus from the text area.
+    this.postService.addPost(post);
+    //console.log("Enter key was pressed");
+    //this.postForm.reset();
+    this.initialForm();
   }
 }
