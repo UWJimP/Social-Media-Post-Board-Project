@@ -23,11 +23,27 @@
         <div class="nav-item">
             <ul class="navbar-nav">
                 <li>
-                    <form>
+                    <form [formGroup]="loginForm">
                         <label class="mr-2">Email:</label>
-                        <input type="email" placeholder="Email" class="mr-2">
+                        <input 
+                        type="email" 
+                        placeholder="Email" 
+                        class="mr-2"
+                        formControlName="email">
                         <label class="mr-2">Password:</label>
-                        <input type="password" placeholder="Password">
+                        <input 
+                        type="password" 
+                        placeholder="Password" 
+                        class="mr-2"
+                        formControlName="password">
+                        <button 
+                        type="button" 
+                        class="mr-2" 
+                        [disabled]="!loginForm.valid"
+                        (click)=login()>
+                        Login
+                        </button>
+                        <button type="button">Sign Up</button>
                     </form>
                 </li>
             </ul>
