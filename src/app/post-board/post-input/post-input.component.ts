@@ -22,13 +22,6 @@ export class PostInputComponent implements OnInit {
   }
 
   /**
-   * Returns if the form is valid and if it was touched before.
-   */
-  formValid() {
-    return this.postForm.valid && this.formTouched;
-  }
-
-  /**
    * Initialize the message box.
    */
   private initialForm() {
@@ -37,13 +30,6 @@ export class PostInputComponent implements OnInit {
       message: new FormControl(this.message, Validators.required)
     });
     this.formTouched = false;
-  }
-
-  /**
-   * Used when the user clicks in the message box.
-   */
-  onMessageClick() {
-    this.formTouched = true;
   }
 
   /**
