@@ -11,7 +11,8 @@ import { AuthComponent } from './auth/auth.component';
 import { PostListComponent } from './post-board/post-list/post-list.component';
 import { PostBoardService } from './post-board/post-board.service';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { LoginHeaderComponent } from './login-header/login-header.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +23,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     SideMenuComponent,
     HeaderComponent,
     AuthComponent,
-    PostListComponent
+    PostListComponent,
+    LoginHeaderComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [PostBoardService],
   bootstrap: [AppComponent]

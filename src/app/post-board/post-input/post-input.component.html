@@ -8,13 +8,13 @@
             id="message" 
             class="post-box form-control" 
             formControlName="message"
-            (click)="onMessageClick()"
             (keyup.enter)="onMessageEnter($event)"
             autocomplete="off"
-            style="resize: none;"></textarea>
+            style="resize: none;"
+            placeholder="{{ defaultMessage }}"></textarea>
             <button type="button"
             class="btn post-btn"
-            [disabled]="!formValid()"
+            [disabled]="!postForm.valid"
             (click)="onMessageEnter($event)">
                 Post
             </button>

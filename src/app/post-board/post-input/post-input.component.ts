@@ -13,6 +13,7 @@ export class PostInputComponent implements OnInit {
   message: string;
   postForm: FormGroup;
   formTouched = false;
+  defaultMessage = "Please enter a post message."
 
   constructor(private postService: PostBoardService) { }
 
@@ -20,6 +21,9 @@ export class PostInputComponent implements OnInit {
     this.initialForm();
   }
 
+  /**
+   * Returns if the form is valid and if it was touched before.
+   */
   formValid() {
     return this.postForm.valid && this.formTouched;
   }
@@ -28,22 +32,17 @@ export class PostInputComponent implements OnInit {
    * Initialize the message box.
    */
   private initialForm() {
-    let message = "Please enter a message."
+    this.message = "";
     this.postForm = new FormGroup({
-      message: new FormControl(message, Validators.required)
+      message: new FormControl(this.message, Validators.required)
     });
     this.formTouched = false;
   }
 
   /**
    * Used when the user clicks in the message box.
-   * It will clear the message box.
    */
   onMessageClick() {
-    this.message = "";
-    this.postForm = new FormGroup({
-      message: new FormControl(this.message, Validators.required)
-    });
     this.formTouched = true;
   }
 
@@ -55,8 +54,6 @@ export class PostInputComponent implements OnInit {
     const post = new Post("First", "Last", this.postForm.value.message);
     event.target.blur(); //Remove focus from the text area.
     this.postService.addPost(post);
-    //console.log("Enter key was pressed");
-    //this.postForm.reset();
     this.initialForm();
   }
 }
