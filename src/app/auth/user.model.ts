@@ -1,14 +1,18 @@
 export class User {
 
-    email: string;
-    first_name: string;
-    last_name: string;
-    img_path: string;
+    constructor(public first: string,
+        public last: string, 
+        public email: string, 
+        public img_path: string,
+        public id: string,
+        private _token: string,
+        private _tokenExpirationDate: Date) {
+    }
 
-    constructor(first: string, last: string, email: string, img_path: string){
-        this.first_name = first;
-        this.last_name = last;
-        this.email = email;
-        this.img_path = img_path;
+    get token() {
+        if(!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
+            return null;
+        }
+        return this._token;
     }
 }

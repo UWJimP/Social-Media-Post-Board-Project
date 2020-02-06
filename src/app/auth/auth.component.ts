@@ -22,13 +22,15 @@ export class AuthComponent implements OnInit {
    */
   private initializeForm() {
     this.signupForm = new FormGroup({
-      first_name: new FormControl(null, Validators.required),
-      last_name: new FormControl(null, Validators.required),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required,
+      'first_name': new FormControl(null, Validators.required),
+      'last_name': new FormControl(null, Validators.required),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'imagePath': new FormControl("assets/img/j_icon.png"),
+      'password': new FormControl(null, [Validators.required,
       Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,16}$/)])
     });
     this.errorForm = {first: true, last: true, email: true, password: true};
+    //console.log(this.signupForm.controls.imagePath.value);
   }
 
   /**

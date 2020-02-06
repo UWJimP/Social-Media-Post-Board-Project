@@ -1,6 +1,17 @@
 <div class="row">
     <div class="col-xs-12 col-md-6 col-xs-offset-3">
         <form [formGroup]="signupForm" (submit)="onSubmit()">
+            <div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <img [src]="imagePath.value" class="img-fluid">
+                    </div>
+                </div>
+                <label>Image URL</label>
+                <input 
+                type="text" class="form-control" onClick="this.select();"
+                formControlName="imagePath" #imagePath>
+            </div>
             <div class="row">
                 <div class="col-xs-12 col-md-6">
                     <label>First Name</label>

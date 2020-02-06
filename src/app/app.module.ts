@@ -13,6 +13,7 @@ import { PostBoardService } from './post-board/post-board.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginHeaderComponent } from './login-header/login-header.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LoginHeaderComponent } from './login-header/login-header.component';
     CommonModule,
     BrowserModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [PostBoardService],
   bootstrap: [AppComponent]
