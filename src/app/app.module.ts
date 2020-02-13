@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginHeaderComponent } from './login-header/login-header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FrontPageComponent } from './front-page/front-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     AuthComponent,
     PostListComponent,
-    LoginHeaderComponent
+    LoginHeaderComponent,
+    FrontPageComponent
   ],
   imports: [
     CommonModule,

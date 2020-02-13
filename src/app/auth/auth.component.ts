@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -11,7 +12,7 @@ export class AuthComponent implements OnInit {
   signupForm: FormGroup;
   errorForm: {first: boolean, last: boolean, email: boolean, password: boolean};
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.initializeForm();
@@ -40,13 +41,23 @@ export class AuthComponent implements OnInit {
     //console.log("Submitted");
     if(this.signupForm.valid) {
       //Navigate to the form to the main page upon logging in.
+      const email = this.signupForm.value.email;
+      const password = this.signupForm.value.password;
+
+      this.authService.signup(email, password).subscribe(resData => {
+
+      },
+      error => {
+        
+      });
     } else {
       //Display an error message.
       let controls = this.signupForm.controls;
       this.errorForm = {first: controls.first_name.valid, last: controls.last_name.valid,
       email: controls.email.valid, password: controls.password.valid};
+      return;
     }
-    //console.log(this.signupForm.controls.email.valid);
+    console.log(this.signupForm);
   }
 
   clickReset() {

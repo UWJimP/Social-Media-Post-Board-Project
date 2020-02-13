@@ -41,7 +41,7 @@
             type="email" 
             class="form-control" 
             formControlName="email"
-            placeholder="e.g. johnsmith123@email.com">
+            placeholder="e.g. johnsmith123@domain.com">
             <p 
             class="text-danger" 
             *ngIf="!errorForm.email">Please put in a valid email</p>
@@ -56,7 +56,7 @@
             <p 
             class="text-danger" 
             *ngIf="!errorForm.password">Password is invalid</p>
-            <div>
+            <div class="mb-5">
                 <button
                 class="btn btn-outline-primary m-2"
                 >Sign up</button>

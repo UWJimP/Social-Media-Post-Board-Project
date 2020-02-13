@@ -19,3 +19,7 @@
 .link-item {
     cursor: pointer;
 }
+
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+}

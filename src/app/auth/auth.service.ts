@@ -1,3 +1,5 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 export interface AuthResponseData {
     idToken: string;
@@ -10,17 +12,38 @@ export interface AuthResponseData {
     registered?: boolean;
 }
 
+@Injectable({providedIn: 'root'})
 export class AuthService {
+
+    constructor(private http: HttpClient) {}
 
     /**
      * Sends a http request to sign up the user.
      * 
      * @param first_name The first name of the user.
      * @param last_name The last name of the user.
-     * @param email 
-     * @param password 
+     * @param email The email of the user. Must not already exist.
+     * @param password The password of the user.
+     * @param imagePath The image URL of the user's image.
      */
-    signup(first_name: string, last_name: string, email: string, password: string) {
+    signup(email: string, password: string) {
+        return this.http.post<AuthResponseData>
+        ('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCpDn3RoNJ2oHuZwB0KQB29D1QC53u-6jw',
+            {email: email, password: password, returnSecureToken: true});
+    }
 
+    updateUserProfile(first_name: string, last_name: string, imagePath: string, userId: string) {
+        const requestLink = "https://social-media-post-board-data.firebaseio.com/" +
+        userId + "/profile.json";
+        return this.http.put(requestLink, 
+            {
+                "first_name": first_name,
+                "last_name": last_name,
+                "imagePath": imagePath,
+            });
+    }
+
+    updateUserPrivate(email: string, password: string) {
+        
     }
 }

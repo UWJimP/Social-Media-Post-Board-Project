@@ -1,4 +1,3 @@
-import { User } from '../auth/user.model';
 
 export class Post {
 
