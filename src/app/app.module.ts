@@ -15,6 +15,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginHeaderComponent } from './login-header/login-header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FrontPageComponent } from './front-page/front-page.component';
+import { DropdownDirective } from 'src/shared/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FrontPageComponent } from './front-page/front-page.component';
     AuthComponent,
     PostListComponent,
     LoginHeaderComponent,
-    FrontPageComponent
+    FrontPageComponent,
+    DropdownDirective
   ],
   imports: [
     CommonModule,
