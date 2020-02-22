@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { User } from './user.model';
 
 export interface AuthResponseData {
     idToken: string;
@@ -14,6 +16,9 @@ export interface AuthResponseData {
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+
+    user = new BehaviorSubject<User>(null);
+    private tokenExpirationTime: any;
 
     constructor(private http: HttpClient) {}
 

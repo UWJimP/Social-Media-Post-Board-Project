@@ -16,6 +16,7 @@ import { LoginHeaderComponent } from './login-header/login-header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FrontPageComponent } from './front-page/front-page.component';
 import { DropdownDirective } from 'src/shared/dropdown.directive';
+import { AppRoutingModule } from 'src/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DropdownDirective } from 'src/shared/dropdown.directive';
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [PostBoardService],
   bootstrap: [AppComponent]
