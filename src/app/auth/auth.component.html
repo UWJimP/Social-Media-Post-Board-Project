@@ -1,70 +1,75 @@
 <div class="row">
-    <div class="col-xs-12 col-md-6 col-xs-offset-3">
-        <form [formGroup]="signupForm" (submit)="onSubmit()">
-            <div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <img [src]="imagePath.value" class="img-fluid">
+    <div class="col-2"></div>
+    <div class="col-10">
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-xs-offset-3">
+                <form [formGroup]="signupForm" (submit)="onSubmit()">
+                    <div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <img [src]="imagePath.value" class="img-fluid">
+                            </div>
+                        </div>
+                        <label>Image URL</label>
+                        <input 
+                        type="text" class="form-control" onClick="this.select();"
+                        formControlName="imagePath" #imagePath>
                     </div>
-                </div>
-                <label>Image URL</label>
-                <input 
-                type="text" class="form-control" onClick="this.select();"
-                formControlName="imagePath" #imagePath>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    <label>First Name</label>
-                    <input
-                    type="text" 
-                    class="form-control" 
-                    formControlName="first_name"
-                    placeholder="e.g. John">
-                    <p 
-                    class="text-danger" 
-                    *ngIf="!errorForm.first">Please put in your first name</p>
-                </div>
-                <div class="col-xs-12 col-md-6">
-                    <label>Last Name</label>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <label>First Name</label>
+                            <input
+                            type="text" 
+                            class="form-control" 
+                            formControlName="first_name"
+                            placeholder="e.g. John">
+                            <p 
+                            class="text-danger" 
+                            *ngIf="!errorForm.first">Please put in your first name</p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <label>Last Name</label>
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            formControlName="last_name"
+                            placeholder="e.g. Smith">
+                            <p 
+                            class="text-danger" 
+                            *ngIf="!errorForm.last">Please put in your last name</p>
+                        </div>
+                    </div>
+                    <label>Email</label>
                     <input 
-                    type="text" 
+                    type="email" 
                     class="form-control" 
-                    formControlName="last_name"
-                    placeholder="e.g. Smith">
+                    formControlName="email"
+                    placeholder="e.g. johnsmith123@domain.com">
                     <p 
                     class="text-danger" 
-                    *ngIf="!errorForm.last">Please put in your last name</p>
-                </div>
+                    *ngIf="!errorForm.email">Please put in a valid email</p>
+                    <label>Password</label>
+                    <input
+                    type="password" 
+                    class="form-control" 
+                    formControlName="password"
+                    >
+                    <label>A password must be 8-16 characters and contain at least one lower case
+                        letter, upper case letter, a number, and a special character: !@#$%^&*()</label>
+                    <p 
+                    class="text-danger" 
+                    *ngIf="!errorForm.password">Password is invalid</p>
+                    <div class="mb-5">
+                        <button
+                        class="btn btn-outline-primary m-2"
+                        >Sign up</button>
+                        <button 
+                        type="button" 
+                        class="btn btn-outline-danger m-2"
+                        (click)="clickReset()">Reset</button>
+                    </div>
+                </form>
             </div>
-            <label>Email</label>
-            <input 
-            type="email" 
-            class="form-control" 
-            formControlName="email"
-            placeholder="e.g. johnsmith123@domain.com">
-            <p 
-            class="text-danger" 
-            *ngIf="!errorForm.email">Please put in a valid email</p>
-            <label>Password</label>
-            <input
-            type="password" 
-            class="form-control" 
-            formControlName="password"
-            >
-            <label>A password must be 8-16 characters and contain at least one lower case
-                letter, upper case letter, a number, and a special character: !@#$%^&*()</label>
-            <p 
-            class="text-danger" 
-            *ngIf="!errorForm.password">Password is invalid</p>
-            <div class="mb-5">
-                <button
-                class="btn btn-outline-primary m-2"
-                >Sign up</button>
-                <button 
-                type="button" 
-                class="btn btn-outline-danger m-2"
-                (click)="clickReset()">Reset</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
