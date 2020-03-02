@@ -4,6 +4,9 @@ import { BehaviorSubject, throwError } from 'rxjs';
 import { User } from './user.model';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { error } from 'protractor';
+import { Profile } from 'src/shared/profile.model';
+
 
 export interface AuthResponseData {
     idToken: string;
@@ -82,14 +85,19 @@ export class AuthService {
         last_name: string, 
         imagePath: string, userId: string) {
         
-        const requestLink = "https://social-media-post-board-data.firebaseio.com/" +
+        const requestLink = "https://social-media-post-board-data.firebaseio.com/users/" +
         userId + "/profile.json";
-        return this.http.put(requestLink, 
-            {
-                "first_name": first_name,
-                "last_name": last_name,
-                "imagePath": imagePath,
+        console.log(requestLink);
+        this.http.put(requestLink, 
+            new Profile(first_name,
+                last_name,
+                imagePath)).subscribe(response => {
+                console.log(response);
             });
+/*             this.http.put(requestLink, new TestData(first_name, last_name, imagePath)
+                ).subscribe(response => {
+                    console.log(response);
+                }); */
     }
 
     updateUserPrivate(email: string, password: string) {
@@ -108,6 +116,7 @@ export class AuthService {
 
     private handleError(errorRes: HttpErrorResponse) {
         let errorMessage = "Unknown Error occurred";
+        console.log(errorRes.error);
         if(!errorRes.error || !errorRes.error.error) {
             return throwError(errorMessage);
         }

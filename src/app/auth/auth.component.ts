@@ -12,8 +12,10 @@ export class AuthComponent implements OnInit {
 
   signupForm: FormGroup;
   errorForm: {first: boolean, last: boolean, email: boolean, password: boolean};
+  isLoading: boolean = false;
+  errorMessage;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.initializeForm();
@@ -45,11 +47,20 @@ export class AuthComponent implements OnInit {
       const email = this.signupForm.value.email;
       const password = this.signupForm.value.password;
 
+      this.isLoading = true;
       this.authService.signup(email, password).subscribe(resData => {
-
+        this.isLoading = false;
+        console.log(resData);
+        this.authService.updateUserProfile(this.signupForm.value.first_name, 
+          this.signupForm.value.last_name,
+          this.signupForm.value.imagePath,
+          resData.localId);
+        this.router.navigate(['/home']);
       },
       error => {
-        
+        console.log(error);
+        this.errorMessage = error;
+        this.isLoading = false;
       });
     } else {
       //Display an error message.
