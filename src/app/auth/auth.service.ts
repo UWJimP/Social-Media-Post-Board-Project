@@ -4,7 +4,6 @@ import { BehaviorSubject, throwError } from 'rxjs';
 import { User } from './user.model';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { error } from 'protractor';
 import { Profile } from 'src/shared/profile.model';
 
 
@@ -21,6 +20,7 @@ export interface AuthResponseData {
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
+    profile = new BehaviorSubject<Profile>(null);
     private tokenExpirationTimer: any;
 
     constructor(private http: HttpClient, private router: Router) {}
@@ -40,7 +40,7 @@ export class AuthService {
             this.handleAuthentication(resData.email, resData.localId, 
                 resData.idToken, +resData.expiresIn);
         }));
-        console.log(data);
+        //console.log(data);
         return data;
     }
 
@@ -81,6 +81,29 @@ export class AuthService {
         }, expirationDuration);
     }
 
+    autoLogin() {
+        const userData: {
+            email: string;
+            id: string;
+            _token: string;
+            _tokenExpirationDate: string;
+        } = JSON.parse(localStorage.getItem('userData'));
+        if(!userData) {
+            return;
+        }
+
+        const loadedUser = new User(userData.email,
+             userData.id, 
+             userData._token,
+             new Date(userData._tokenExpirationDate));
+    
+        if(loadedUser.token) {
+            this.user.next(loadedUser);
+            const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+            this.autoLogout(expirationDuration);
+        }
+    }
+
     updateUserProfile(first_name: string, 
         last_name: string, 
         imagePath: string, userId: string) {
@@ -93,14 +116,17 @@ export class AuthService {
                 last_name,
                 imagePath)).subscribe(response => {
                 console.log(response);
+            }, error => {
+                console.log("Error in updateUserProfile");
+                console.log(error);
             });
-/*             this.http.put(requestLink, new TestData(first_name, last_name, imagePath)
-                ).subscribe(response => {
-                    console.log(response);
-                }); */
     }
 
     updateUserPrivate(email: string, password: string) {
+        
+    }
+
+    setUser() {
         
     }
 

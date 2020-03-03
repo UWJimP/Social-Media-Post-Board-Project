@@ -29,7 +29,7 @@ export class AuthComponent implements OnInit {
       'first_name': new FormControl(null, Validators.required),
       'last_name': new FormControl(null, Validators.required),
       'email': new FormControl(null, [Validators.required, Validators.email]),
-      'imagePath': new FormControl("assets/img/j_icon.png"),
+      'imagePath': new FormControl("assets/img/j_icon.png", Validators.required),
       'password': new FormControl(null, [Validators.required,
       Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,16}$/)])
     });
