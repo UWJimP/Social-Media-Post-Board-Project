@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Post } from '../../../shared/post.model';
+import { Post } from '../../shared/post.model';
 import { Subscription } from 'rxjs';
 import { PostBoardService } from '../post-board.service';
 

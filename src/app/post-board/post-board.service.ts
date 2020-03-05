@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { Post } from '../../shared/post.model';
+import { Post } from '../shared/post.model';
 
 export class PostBoardService {
 

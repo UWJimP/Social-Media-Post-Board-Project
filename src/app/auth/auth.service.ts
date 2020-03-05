@@ -4,7 +4,7 @@ import { BehaviorSubject, throwError } from 'rxjs';
 import { User } from './user.model';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Profile } from 'src/shared/profile.model';
+import { Profile } from 'src/app/shared/profile.model';
 
 
 export interface AuthResponseData {

@@ -15,9 +15,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoginHeaderComponent } from './login-header/login-header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FrontPageComponent } from './front-page/front-page.component';
-import { DropdownDirective } from 'src/shared/dropdown.directive';
+import { DropdownDirective } from 'src/app/shared/dropdown.directive';
 import { AppRoutingModule } from 'src/app-routing.module';
 import { ProfileComponent } from './profile/profile.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ProfileComponent } from './profile/profile.component';
     LoginHeaderComponent,
     FrontPageComponent,
     DropdownDirective,
-    ProfileComponent
+    ProfileComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     CommonModule,
