@@ -59,6 +59,12 @@
                     <p 
                     class="text-danger" 
                     *ngIf="!errorForm.password">Password is invalid</p>
+                    <div class="card" *ngIf="errorMessage">
+                        <div class="card-body">
+                            <h5 class="card-title">Error</h5>
+                            <p class="card-text">{{ errorMessage }}</p>
+                        </div>
+                    </div>
                     <div class="mb-5">
                         <button
                         class="btn btn-outline-primary m-2"

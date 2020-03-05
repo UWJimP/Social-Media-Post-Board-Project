@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
 
   isAuthenicated = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -20,4 +20,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
+  onHome() {
+    this.router.navigate(['/home']);
+  }
 }

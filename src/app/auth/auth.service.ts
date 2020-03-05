@@ -62,10 +62,13 @@ export class AuthService {
             this.handleAuthentication(resData.email, 
                 resData.localId, resData.idToken, +resData.expiresIn);
         }));
-        console.log(data);
+        //console.log(data);
         return data;
     }
 
+    /**
+     * Logs the user out of their account.
+     */
     logout() {
         this.user.next(null);
         this.router.navigate(['/welcome']);
@@ -75,12 +78,20 @@ export class AuthService {
         }
     }
 
+    /**
+     * A function that sets up the app to determine how much time is left on the user's account.
+     * 
+     * @param expirationDuration The amount of time left in the session.
+     */
     autoLogout(expirationDuration: number) {
         this.tokenExpirationTimer = setTimeout(() => {
             this.logout();
         }, expirationDuration);
     }
 
+    /**
+     * Uses the local storaged data to log back into the server.
+     */
     autoLogin() {
         const userData: {
             email: string;
@@ -92,30 +103,51 @@ export class AuthService {
             return;
         }
 
+        const userProfile: {
+            first_name: string;
+            last_name: string;
+            imagePath: string;
+        } = JSON.parse(localStorage.getItem('userProfile'));
+
         const loadedUser = new User(userData.email,
              userData.id, 
              userData._token,
              new Date(userData._tokenExpirationDate));
+        
+        let loadedProfile: Profile;
+        if(userProfile !== null) {
+            loadedProfile = new Profile(userProfile.first_name, 
+                userProfile.last_name, userProfile.imagePath);
+        }
     
         if(loadedUser.token) {
             this.user.next(loadedUser);
+            this.profile.next(loadedProfile);
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.autoLogout(expirationDuration);
         }
     }
 
+    /**
+     * Updates the user's profile information.
+     * 
+     * @param first_name User's first name.
+     * @param last_name User's last name.
+     * @param imagePath User's image url.
+     * @param userId The user's id.
+     */
     updateUserProfile(first_name: string, 
         last_name: string, 
         imagePath: string, userId: string) {
         
         const requestLink = "https://social-media-post-board-data.firebaseio.com/users/" +
         userId + "/profile.json";
-        console.log(requestLink);
-        this.http.put(requestLink, 
-            new Profile(first_name,
-                last_name,
-                imagePath)).subscribe(response => {
-                console.log(response);
+        //console.log(requestLink);
+        const profileData = new Profile(first_name, last_name, imagePath);
+        this.http.put(requestLink, profileData).subscribe(response => {
+                //console.log(response);
+                this.profile.next(profileData);
+                localStorage.setItem('userProfile', JSON.stringify(profileData));
             }, error => {
                 console.log("Error in updateUserProfile");
                 console.log(error);
@@ -127,7 +159,7 @@ export class AuthService {
     }
 
     setUser() {
-        
+
     }
 
     private handleAuthentication(email: string, userId: string, 
@@ -136,13 +168,14 @@ export class AuthService {
             const user = new User(email, userId, token, expirationDate);
             //console.log(user);
             this.user.next(user);
+            //console.log(this.user.getValue());
             this.autoLogout(expiresIn * 1000);
             localStorage.setItem('userData', JSON.stringify(user));
     }
 
     private handleError(errorRes: HttpErrorResponse) {
         let errorMessage = "Unknown Error occurred";
-        console.log(errorRes.error);
+        //console.log(errorRes.error);
         if(!errorRes.error || !errorRes.error.error) {
             return throwError(errorMessage);
         }

@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FrontPageComponent } from './front-page/front-page.component';
 import { DropdownDirective } from 'src/shared/dropdown.directive';
 import { AppRoutingModule } from 'src/app-routing.module';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AppRoutingModule } from 'src/app-routing.module';
     PostListComponent,
     LoginHeaderComponent,
     FrontPageComponent,
-    DropdownDirective
+    DropdownDirective,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

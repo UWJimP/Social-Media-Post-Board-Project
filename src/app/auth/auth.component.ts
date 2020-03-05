@@ -50,7 +50,7 @@ export class AuthComponent implements OnInit {
       this.isLoading = true;
       this.authService.signup(email, password).subscribe(resData => {
         this.isLoading = false;
-        console.log(resData);
+        //console.log(resData);
         this.authService.updateUserProfile(this.signupForm.value.first_name, 
           this.signupForm.value.last_name,
           this.signupForm.value.imagePath,
@@ -69,12 +69,13 @@ export class AuthComponent implements OnInit {
       email: controls.email.valid, password: controls.password.valid};
       return;
     }
-    console.log(this.signupForm);
+    //console.log(this.signupForm);
   }
 
   clickReset() {
     //this.initializeForm();
     this.signupForm.reset();
     this.errorForm = {first: true, last: true, email: true, password: true};
+    this.errorMessage = null;
   }
 }

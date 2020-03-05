@@ -11,23 +11,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item active">
-                    <a class="nav-link link-item" 
-                    routerLink="/" 
-                    routerLinkActive="active">Home<span class="sr-only">(current)</span>
+                    <a class="nav-link link-item" (click)="onHome()">
+                        Home
                     </a>
                 </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item active">
                     <a class="nav-link link-item" (click)="onLogout()">
                         Logout
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link link-item">
-                        Home
                     </a>
                 </li>
             </ul>

@@ -27,8 +27,8 @@ export class LoginHeaderComponent implements OnInit {
   }
 
   login() {
-    console.log(this.loginForm.get("email").value);
-    console.log(this.loginForm.get("password").value);
+    //console.log(this.loginForm.get("email").value);
+    //console.log(this.loginForm.get("password").value);
     if(this.loginForm.invalid) {
       console.log("Form failed.");
       return;
@@ -40,12 +40,13 @@ export class LoginHeaderComponent implements OnInit {
     this.isLoading = true;
     //authObservable = this.authService.login(email, password);
     this.authService.login(email, password).subscribe(resData => {
-      console.log(resData);
+      //console.log(resData);
       this.isLoading = false;
       this.router.navigate(['/home']);
     }, errorMessage => {
       console.log(errorMessage);
       this.error = errorMessage;
+      this.isLoading = false;
     });
   }
 }
