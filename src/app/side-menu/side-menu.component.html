@@ -1,1 +1,30 @@
-<p>side-menu works!</p>
+<div class="mb-4">
+    <button (click)="onGoHome()" class="btn">
+        <i class="material-icons">home</i> <!-- Icon used for going home -->
+    </button>
+</div>
+<div class="mb-4">
+    <button class="btn">
+        <i class="material-icons">all_inbox</i> <!-- Icon used for messages -->
+    </button>
+</div>
+<div class="mb-4">
+    <button class="btn">
+        <i class="material-icons">history</i> <!-- Icon used for History -->
+    </button>
+</div>
+<div class="mb-4">
+    <button class="btn">
+        <i class="material-icons">supervisor_account</i> <!-- Icon used for Friends -->
+    </button>
+</div>
+<div class="mb-4">
+    <button class="btn" (click)="onGoSettings()">
+        <i class="material-icons">settings</i> <!-- Icon used for Settings -->
+    </button>
+</div>
+<div class="mb-4">
+    <button (click)="onLogout()" class="btn">
+        <i class="material-icons">power_settings_new</i> <!-- Icon used to Logout -->
+    </button>
+</div>

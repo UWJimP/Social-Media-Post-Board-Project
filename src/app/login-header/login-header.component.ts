@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService, AuthResponseData } from '../auth/auth.service';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -41,6 +40,7 @@ export class LoginHeaderComponent implements OnInit {
     //authObservable = this.authService.login(email, password);
     this.authService.login(email, password).subscribe(resData => {
       //console.log(resData);
+      this.authService.loginProfile(resData.localId);
       this.isLoading = false;
       this.router.navigate(['/home']);
     }, errorMessage => {

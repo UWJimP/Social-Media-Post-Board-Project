@@ -19,6 +19,7 @@ import { DropdownDirective } from 'src/app/shared/dropdown.directive';
 import { AppRoutingModule } from 'src/app-routing.module';
 import { ProfileComponent } from './profile/profile.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { SettingsComponent } from './side-menu/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     FrontPageComponent,
     DropdownDirective,
     ProfileComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

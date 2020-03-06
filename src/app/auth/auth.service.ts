@@ -66,6 +66,17 @@ export class AuthService {
         return data;
     }
 
+    loginProfile(userId: string) {
+        this.http.get(
+            'https://social-media-post-board-data.firebaseio.com/users/'
+             + userId + '/profile.json').subscribe(resData => {
+                console.log(resData);
+                localStorage.setItem('userProfile', JSON.stringify(resData));
+             }, error => {
+                 console.log("Error in loginProfile(): " + error);
+             });
+    }
+
     /**
      * Logs the user out of their account.
      */
@@ -73,6 +84,7 @@ export class AuthService {
         this.user.next(null);
         this.router.navigate(['/welcome']);
         localStorage.removeItem('userData');
+        localStorage.removeItem('userProfile');
         if(this.tokenExpirationTimer) {
             clearTimeout(this.tokenExpirationTimer);
         }
@@ -103,26 +115,33 @@ export class AuthService {
             return;
         }
 
-        const userProfile: {
-            first_name: string;
-            last_name: string;
-            imagePath: string;
+        let userProfile: {
+            first_name: string, 
+            imagePath: string, 
+            last_name:string
         } = JSON.parse(localStorage.getItem('userProfile'));
+
 
         const loadedUser = new User(userData.email,
              userData.id, 
              userData._token,
              new Date(userData._tokenExpirationDate));
         
+    
+        
+        //console.log(testData);
         let loadedProfile: Profile;
         if(userProfile !== null) {
+            console.log("Loaded userProfile")
             loadedProfile = new Profile(userProfile.first_name, 
                 userProfile.last_name, userProfile.imagePath);
+            
+            this.profile.next(loadedProfile);
         }
+        //console.log(loadedProfile);
     
         if(loadedUser.token) {
             this.user.next(loadedUser);
-            this.profile.next(loadedProfile);
             const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
             this.autoLogout(expirationDuration);
         }

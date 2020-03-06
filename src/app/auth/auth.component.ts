@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   signupForm: FormGroup;
   errorForm: {first: boolean, last: boolean, email: boolean, password: boolean};
   isLoading: boolean = false;
-  errorMessage;
+  errorMessage: any;
 
   constructor(private authService: AuthService, private router: Router) { }
 
