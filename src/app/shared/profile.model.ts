@@ -1,6 +1,6 @@
 export class Profile {
 
-    constructor(private first_name: string, private last_name: string, 
-        private imagePath: string) {}
+    constructor(public first_name: string, public last_name: string, 
+        public imagePath: string) {}
 
 }

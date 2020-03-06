@@ -23,6 +23,8 @@ export class AuthService {
     profile = new BehaviorSubject<Profile>(null);
     private tokenExpirationTimer: any;
 
+    //Subscriptions
+
     constructor(private http: HttpClient, private router: Router) {}
 
     /**
@@ -67,14 +69,24 @@ export class AuthService {
     }
 
     loginProfile(userId: string) {
-        this.http.get(
+        //let profileData: Profile;
+        //console.log("loginning in profile");
+        let profileSub = this.http.get<Profile>(
             'https://social-media-post-board-data.firebaseio.com/users/'
              + userId + '/profile.json').subscribe(resData => {
-                console.log(resData);
+                //console.log(resData);
                 localStorage.setItem('userProfile', JSON.stringify(resData));
-             }, error => {
+                const profileData = new Profile(resData.first_name, resData.last_name, resData.imagePath);
+                this.profile.next(profileData);
+                //console.log(profileData);
+            }, error => {
                  console.log("Error in loginProfile(): " + error);
-             });
+            }
+        );
+             
+        //console.log(profileData);
+        
+        //profileSub.unsubscribe();
     }
 
     /**

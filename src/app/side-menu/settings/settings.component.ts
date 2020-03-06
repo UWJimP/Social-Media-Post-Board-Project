@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Profile } from 'src/app/shared/profile.model';
 
 @Component({
@@ -12,19 +12,20 @@ export class SettingsComponent implements OnInit {
 
   profileForm: FormGroup;
   privateForm: FormGroup;
-  profileData: Profile;
 
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    const authProfile = this.authService.profile;
-    //console.log(authProfile);
+    const authProfile = this.authService.profile.getValue();
     this.profileForm = new FormGroup({
-      'first_name': new FormControl(null),
-      'imagePath': new FormControl(null),
-      'last_name': new FormControl(null)
+      'first_name': new FormControl(authProfile.first_name, Validators.required),
+      'imagePath': new FormControl(authProfile.imagePath, Validators.required),
+      'last_name': new FormControl(authProfile.last_name, Validators.required)
     });
   }
 
+  updateProfile(first_name: string, last_name: string, imagePath: string, userId: string) {
+    this.authService.updateUserProfile(first_name, last_name, imagePath, userId);
+  }
 }
