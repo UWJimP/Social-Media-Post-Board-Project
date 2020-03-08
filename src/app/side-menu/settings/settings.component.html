@@ -3,6 +3,9 @@
         <app-side-menu></app-side-menu>
     </div>
     <div class="col-10">
+        <app-alert [message]="settingMessage" 
+        *ngIf="settingMessage" 
+        (close)="onCloseAlert()"></app-alert>
         <h1>Settings</h1>
         <form [formGroup]="profileForm">
             <div>
@@ -36,7 +39,8 @@
             </div>
             <button
             class="btn btn-outline-primary m-2"
-            >Update Profile
+            (click)="updateProfile()"
+            [disabled]="!profileForm.valid">Update Profile
             </button>
         </form>
         <hr>

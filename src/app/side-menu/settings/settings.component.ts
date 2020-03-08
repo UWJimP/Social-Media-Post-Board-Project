@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Profile } from 'src/app/shared/profile.model';
 
 @Component({
   selector: 'app-settings',
@@ -12,7 +11,7 @@ export class SettingsComponent implements OnInit {
 
   profileForm: FormGroup;
   privateForm: FormGroup;
-
+  settingMessage: string;
 
   constructor(private authService: AuthService) { }
 
@@ -23,9 +22,22 @@ export class SettingsComponent implements OnInit {
       'imagePath': new FormControl(authProfile.imagePath, Validators.required),
       'last_name': new FormControl(authProfile.last_name, Validators.required)
     });
+    this.settingMessage = null;
   }
 
-  updateProfile(first_name: string, last_name: string, imagePath: string, userId: string) {
-    this.authService.updateUserProfile(first_name, last_name, imagePath, userId);
+  updateProfile() {
+    const message: string = this.authService.updateUserProfile(this.profileForm.get('first_name').value, 
+    this.profileForm.get('last_name').value, 
+    this.profileForm.get('imagePath').value, 
+    this.authService.user.getValue().id);
+    if(message == "no error") {
+      this.settingMessage = "Your profile was updated successfully!";
+    } else {
+      this.settingMessage = message;
+    }
+  }
+
+  onCloseAlert() {
+    this.settingMessage = null;
   }
 }

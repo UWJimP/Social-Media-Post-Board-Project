@@ -49,4 +49,8 @@ export class LoginHeaderComponent implements OnInit {
       this.isLoading = false;
     });
   }
+
+  onCloseAlert() {
+    this.error = null;
+  }
 }

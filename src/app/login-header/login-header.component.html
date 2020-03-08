@@ -38,4 +38,5 @@
             </ul>
         </div>
     </nav>
+    <app-alert [message]="error" *ngIf="error" (close)="onCloseAlert()"></app-alert>
 </div>

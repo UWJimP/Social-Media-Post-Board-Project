@@ -175,6 +175,7 @@ export class AuthService {
         userId + "/profile.json";
         //console.log(requestLink);
         const profileData = new Profile(first_name, last_name, imagePath);
+        let errorMessage: string = "no error";
         this.http.put(requestLink, profileData).subscribe(response => {
                 //console.log(response);
                 this.profile.next(profileData);
@@ -182,7 +183,10 @@ export class AuthService {
             }, error => {
                 console.log("Error in updateUserProfile");
                 console.log(error);
-            });
+                errorMessage = error;
+            }
+        );
+        return errorMessage;
     }
 
     updateUserPrivate(email: string, password: string) {
