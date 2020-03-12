@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Post } from '../../shared/post.model';
 import { PostBoardService } from '../post-board.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Profile } from 'src/app/shared/profile.model';
 
 @Component({
   selector: 'app-post-input',
@@ -14,11 +16,13 @@ export class PostInputComponent implements OnInit {
   postForm: FormGroup;
   formTouched = false;
   defaultMessage = "Please enter a post message."
+  profile: Profile;
 
-  constructor(private postService: PostBoardService) { }
+  constructor(private postService: PostBoardService, private authService: AuthService) { }
 
   ngOnInit() {
     this.initialForm();
+    this.profile = this.authService.profile.getValue();
   }
 
   /**
@@ -37,7 +41,8 @@ export class PostInputComponent implements OnInit {
    * It will reset the box and send the message to the Post Service.
    */
   onMessageEnter(event) {
-    const post = new Post("First", "Last", this.postForm.value.message);
+    const post = new Post(this.profile.first_name, this.profile.last_name,
+      this.profile.imagePath, this.postForm.value.message);
     event.target.blur(); //Remove focus from the text area.
     this.postService.addPost(post);
     this.initialForm();

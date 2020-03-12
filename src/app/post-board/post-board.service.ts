@@ -5,8 +5,8 @@ export class PostBoardService {
 
     private postBoardChanged = new Subject<Post[]>();
     private posts: Post[] = [
-        new Post("Jim", "P", "Test message."),
-        new Post("Ja123456", "A12456", "Test message 2. This is a much longer message to test.")
+        new Post("Jim", "P", "assets/img/j_icon.png", "Test message."),
+        new Post("Ja123456", "A12456", "assets/img/j_icon.png", "Test message 2. This is a much longer message to test.")
     ];
 
     constructor(){}
