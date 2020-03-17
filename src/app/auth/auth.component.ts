@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
 
   signupForm: FormGroup;
-  errorForm: {first: boolean, last: boolean, email: boolean, password: boolean};
+  errorForm: {first: boolean, last: boolean, email: boolean, password: boolean, username: boolean};
   isLoading: boolean = false;
   errorMessage: any;
 
@@ -30,10 +30,12 @@ export class AuthComponent implements OnInit {
       'last_name': new FormControl(null, Validators.required),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'imagePath': new FormControl("assets/img/j_icon.png", Validators.required),
+      'username': new FormControl(null, [Validators.required,
+      Validators.pattern(/^\S*$/)]),
       'password': new FormControl(null, [Validators.required,
       Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,16}$/)])
     });
-    this.errorForm = {first: true, last: true, email: true, password: true};
+    this.errorForm = {first: true, last: true, email: true, password: true, username: true};
     //console.log(this.signupForm.controls.imagePath.value);
   }
 
@@ -48,25 +50,42 @@ export class AuthComponent implements OnInit {
       const password = this.signupForm.value.password;
 
       this.isLoading = true;
-      this.authService.signup(email, password).subscribe(resData => {
-        this.isLoading = false;
-        //console.log(resData);
-        this.authService.updateUserProfile(this.signupForm.value.first_name, 
-          this.signupForm.value.last_name,
-          this.signupForm.value.imagePath,
-          resData.localId);
-        this.router.navigate(['/home']);
-      },
-      error => {
-        console.log(error);
-        this.errorMessage = error;
-        this.isLoading = false;
+      let duplicateUsername = false;
+      this.authService.checkDuplicateUsername(this.signupForm.value.username)
+      .then(resData => {
+        if(resData !== null) {
+          duplicateUsername = true;
+        }
       });
+
+      if(duplicateUsername){
+        this.isLoading = false;
+        this.errorMessage = "Sorry but, " + this.signupForm.value.username + " is already taken.";
+      } else {
+        this.authService.signup(email, password).subscribe(resData => {
+          this.isLoading = false;
+          //console.log(resData);
+          this.authService.updateUserProfile(this.signupForm.value.first_name, 
+            this.signupForm.value.last_name,
+            this.signupForm.value.imagePath,
+            this.signupForm.value.username,
+            resData.localId
+          );
+          this.authService.addUserName(this.signupForm.value.username, resData.localId);
+          this.router.navigate(['/home']);
+        },
+        error => {
+          console.log("Error signing up: " + error);
+          this.errorMessage = error;
+          this.isLoading = false;
+        });
+      }
     } else {
       //Display an error message.
       let controls = this.signupForm.controls;
       this.errorForm = {first: controls.first_name.valid, last: controls.last_name.valid,
-      email: controls.email.valid, password: controls.password.valid};
+      email: controls.email.valid, password: controls.password.valid,
+      username: controls.username.valid};
       return;
     }
     //console.log(this.signupForm);
@@ -75,7 +94,11 @@ export class AuthComponent implements OnInit {
   clickReset() {
     //this.initializeForm();
     this.signupForm.reset();
-    this.errorForm = {first: true, last: true, email: true, password: true};
+    this.errorForm = {first: true, last: true, email: true, password: true, username: true};
+    this.errorMessage = null;
+  }
+
+  onCloseAlert() {
     this.errorMessage = null;
   }
 }

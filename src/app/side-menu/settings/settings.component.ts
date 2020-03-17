@@ -25,18 +25,24 @@ export class SettingsComponent implements OnInit, OnDestroy {
       'imagePath': new FormControl(authProfile.imagePath, Validators.required),
       'last_name': new FormControl(authProfile.last_name, Validators.required)
     });
+/*     this.privateForm = new FormGroup({
+      'username': new FormControl(authProfile.username, [Validators.required,
+        Validators.pattern(/^\S*$/)])
+    }); */
     this.settingMessage = null;
   }
 
   ngOnDestroy() {
     this.settingMessage = null;
     this.profileForm = null;
+    this.privateForm = null;
   }
 
   updateProfile() {
     const message: string = this.authService.updateUserProfile(this.profileForm.get('first_name').value, 
     this.profileForm.get('last_name').value, 
     this.profileForm.get('imagePath').value, 
+    this.authService.profile.getValue().username,
     this.authService.user.getValue().id);
     if(message == "no error") {
       this.settingMessage = "Your profile was updated successfully!";

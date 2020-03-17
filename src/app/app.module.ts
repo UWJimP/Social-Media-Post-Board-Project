@@ -21,6 +21,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { SettingsComponent } from './side-menu/settings/settings.component';
 import { AlertComponent } from './shared/alert/alert.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AlertComponent } from './shared/alert/alert.component';
     ProfileComponent,
     LoadingSpinnerComponent,
     SettingsComponent,
-    AlertComponent
+    AlertComponent,
+    TestComponent
   ],
   imports: [
     CommonModule,
