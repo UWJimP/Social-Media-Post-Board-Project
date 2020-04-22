@@ -23,6 +23,7 @@ import { SettingsComponent } from './side-menu/settings/settings.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { TestComponent } from './test/test.component';
 import { ConfirmComponent } from './shared/confirm/confirm.component';
+import { DefaultImageDirective } from './shared/default-image.directive';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ConfirmComponent } from './shared/confirm/confirm.component';
     LoginHeaderComponent,
     FrontPageComponent,
     DropdownDirective,
+    DefaultImageDirective,
     ProfileComponent,
     LoadingSpinnerComponent,
     SettingsComponent,

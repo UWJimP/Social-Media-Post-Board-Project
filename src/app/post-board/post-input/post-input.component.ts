@@ -12,10 +12,10 @@ import { Profile } from 'src/app/shared/profile.model';
 })
 export class PostInputComponent implements OnInit {
 
-  message: string;
+  //message: string;
   postForm: FormGroup;
   formTouched = false;
-  defaultMessage = "Please enter a post message."
+  //defaultMessage = "Please enter a post message."
   profile: Profile;
 
   constructor(private postService: PostBoardService, private authService: AuthService) { }
@@ -29,9 +29,9 @@ export class PostInputComponent implements OnInit {
    * Initialize the message box.
    */
   private initialForm() {
-    this.message = "";
+    //this.message = "";
     this.postForm = new FormGroup({
-      message: new FormControl(this.message, Validators.required)
+      message: new FormControl("", Validators.required)
     });
     this.formTouched = false;
   }
@@ -41,8 +41,14 @@ export class PostInputComponent implements OnInit {
    * It will reset the box and send the message to the Post Service.
    */
   onMessageEnter(event) {
-    const post = new Post(this.profile.first_name, this.profile.last_name,
-      this.profile.imagePath, this.postForm.value.message);
+/*     const post = new Post(this.profile.first_name, this.profile.last_name,
+      this.profile.imagePath, this.postForm.value.message); */
+    const post = new Post(this.profile.username,
+      this.profile.first_name,
+      this.profile.last_name, 
+      this.profile.imagePath, 
+      this.postForm.value.message
+    );
     event.target.blur(); //Remove focus from the text area.
     this.postService.addPost(post);
     this.initialForm();

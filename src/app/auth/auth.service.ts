@@ -6,7 +6,9 @@ import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Profile } from 'src/app/shared/profile.model';
 
-
+/**
+ * The interface of the Authentication Response Data to be used.
+ */
 export interface AuthResponseData {
     idToken: string;
     email: string;
