@@ -53,32 +53,56 @@ export class AuthComponent implements OnInit {
       let duplicateUsername = false;
       this.authService.checkDuplicateUsername(this.signupForm.value.username)
       .then(resData => {
-        if(resData !== null) {
+        
+        if(resData == null || resData == false) {
+          this.authService.signup(email, password).subscribe(resData => {
+            this.isLoading = false;
+            //console.log(resData);
+            this.authService.updateUserProfile(this.signupForm.value.first_name, 
+              this.signupForm.value.last_name,
+              this.signupForm.value.imagePath,
+              this.signupForm.value.username,
+              resData.localId
+            );
+            this.authService.addUserName(this.signupForm.value.username, resData.localId);
+            this.router.navigate(['/home']);
+          },
+          error => {
+            console.log("Error signing up: " + error);
+            this.errorMessage = error;
+            this.isLoading = false;
+          });
+        } else {
+          this.isLoading = false;
+          this.errorMessage = "Sorry but, " + this.signupForm.value.username + " is already taken.";
+        }
+
+/*         if(resData !== null) {
           duplicateUsername = true;
           //console.log("Username found!");
           if(duplicateUsername){
             this.isLoading = false;
             this.errorMessage = "Sorry but, " + this.signupForm.value.username + " is already taken.";
-          } else {
-            this.authService.signup(email, password).subscribe(resData => {
-              this.isLoading = false;
-              //console.log(resData);
-              this.authService.updateUserProfile(this.signupForm.value.first_name, 
-                this.signupForm.value.last_name,
-                this.signupForm.value.imagePath,
-                this.signupForm.value.username,
-                resData.localId
-              );
-              this.authService.addUserName(this.signupForm.value.username, resData.localId);
-              this.router.navigate(['/home']);
-            },
-            error => {
-              console.log("Error signing up: " + error);
-              this.errorMessage = error;
-              this.isLoading = false;
-            });
           }
-        }
+        } else {
+          this.authService.signup(email, password).subscribe(resData => {
+            this.isLoading = false;
+            //console.log(resData);
+            this.authService.updateUserProfile(this.signupForm.value.first_name, 
+              this.signupForm.value.last_name,
+              this.signupForm.value.imagePath,
+              this.signupForm.value.username,
+              resData.localId
+            );
+            this.authService.addUserName(this.signupForm.value.username, resData.localId);
+            this.router.navigate(['/home']);
+          },
+          error => {
+            console.log("Error signing up: " + error);
+            this.errorMessage = error;
+            this.isLoading = false;
+          });
+        } */
       });
 
       //console.log("Duplicateusername: " + duplicateUsername);

@@ -92,7 +92,7 @@ export class AuthService {
                 localStorage.setItem('userProfile', JSON.stringify(resData));
                 const profileData = new Profile(resData.first_name, 
                     resData.last_name, 
-                    resData.imagePath, 
+                    resData.imagePath,
                     resData.username);
                 this.profile.next(profileData);
                 //console.log(profileData);
@@ -100,10 +100,6 @@ export class AuthService {
                  console.log("Error in loginProfile(): " + error);
             }
         );
-             
-        //console.log(profileData);
-        
-        //profileSub.unsubscribe();
     }
 
     /**
