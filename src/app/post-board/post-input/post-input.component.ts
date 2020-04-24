@@ -4,7 +4,6 @@ import { Post } from '../../shared/post.model';
 import { PostBoardService } from '../post-board.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Profile } from 'src/app/shared/profile.model';
-import { User } from 'src/app/auth/user.model';
 
 @Component({
   selector: 'app-post-input',
@@ -52,6 +51,7 @@ export class PostInputComponent implements OnInit {
     );
     event.target.blur(); //Remove focus from the text area.
     this.postService.addPost(post);
+    //this.postService.getPosts();
     this.initialForm();
   }
 }

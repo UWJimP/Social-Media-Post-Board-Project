@@ -1,30 +1,64 @@
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Post } from '../shared/post.model';
-import { OnInit } from '@angular/core';
+import { OnInit, OnDestroy, Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { DataManagementService } from '../shared/data-management.service';
+import { HttpClient } from '@angular/common/http';
 
-export class PostBoardService implements OnInit {
+interface CountId {
+    count_id: number;
+}
+
+@Injectable()
+export class PostBoardService implements OnInit, OnDestroy {
 
     private postBoardChanged = new Subject<Post[]>();
-    /* private posts: Post[] = [
-        new Post("Jim", "P", "assets/img/j_icon.png", "Test message."),
-        new Post("Ja123456", "A12456", "assets/img/j_icon.png", "Test message 2. This is a much longer message to test.")
-    ]; */
     private posts: Post[] = [];
+    private dataPosts: Subscription;
 
-    constructor(){}
+    constructor(private dataManage: DataManagementService, private http: HttpClient){}
 
     ngOnInit() {
         
     }
 
+    ngOnDestroy() {
+        this.dataPosts.unsubscribe();
+    }
+
     getPosts() {
-        return this.posts.slice();
+        this.http.get<Post[]>
+        ('https://social-media-post-board-data.firebaseio.com/posts.json')
+        .subscribe(
+            resData => {
+                const posts: Post[] = resData;
+                posts.reverse();
+                this.posts = posts;
+                this.postBoardChanged.next(this.posts.slice());
+            }
+        );
+    }
+
+    fetchPosts() {
+        return this.http.get<Post[]>
+        ('https://social-media-post-board-data.firebaseio.com/posts.json');
     }
 
     addPost(post: Post) {
-        this.posts.unshift(post);
-        this.postBoardChanged.next(this.posts.slice());
+        //this.posts.unshift(post);
+        //this.postBoardChanged.next(this.posts.slice());
+        
+        this.http.get('https://social-media-post-board-data.firebaseio.com/post_data/count_id.json')
+        .subscribe(resData => {
+            //console.log(resData);
+            const id: number = +resData + 1;
+            this.http.put('https://social-media-post-board-data.firebaseio.com/post_data/count_id.json', id)
+            .subscribe();
+            this.http.put('https://social-media-post-board-data.firebaseio.com/posts/' + id + '.json',
+            post).subscribe(resData => {
+                this.getPosts();
+            });
+        });
     }
 
     public getSubscription() {
