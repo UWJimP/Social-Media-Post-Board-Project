@@ -26,6 +26,11 @@ export class PostBoardService implements OnInit, OnDestroy {
         this.dataPosts.unsubscribe();
     }
 
+    /**
+     * Gets all the posts from the database.
+     * NOTE: This method is inefficient as it grabs all the data rather than a set.
+     * This method must be completed. 
+     */
     getPosts() {
         this.http.get<Post[]>
         ('https://social-media-post-board-data.firebaseio.com/posts.json')
@@ -59,6 +64,10 @@ export class PostBoardService implements OnInit, OnDestroy {
                 this.getPosts();
             });
         });
+    }
+
+    pushPost() {
+        return this.http.get('https://social-media-post-board-data.firebaseio.com/post_data/count_id.json');
     }
 
     public getSubscription() {

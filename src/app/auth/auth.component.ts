@@ -76,33 +76,6 @@ export class AuthComponent implements OnInit {
           this.isLoading = false;
           this.errorMessage = "Sorry but, " + this.signupForm.value.username + " is already taken.";
         }
-
-/*         if(resData !== null) {
-          duplicateUsername = true;
-          //console.log("Username found!");
-          if(duplicateUsername){
-            this.isLoading = false;
-            this.errorMessage = "Sorry but, " + this.signupForm.value.username + " is already taken.";
-          }
-        } else {
-          this.authService.signup(email, password).subscribe(resData => {
-            this.isLoading = false;
-            //console.log(resData);
-            this.authService.updateUserProfile(this.signupForm.value.first_name, 
-              this.signupForm.value.last_name,
-              this.signupForm.value.imagePath,
-              this.signupForm.value.username,
-              resData.localId
-            );
-            this.authService.addUserName(this.signupForm.value.username, resData.localId);
-            this.router.navigate(['/home']);
-          },
-          error => {
-            console.log("Error signing up: " + error);
-            this.errorMessage = error;
-            this.isLoading = false;
-          });
-        } */
       });
     } else {
       //Display an error message.

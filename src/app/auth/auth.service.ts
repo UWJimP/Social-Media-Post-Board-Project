@@ -107,6 +107,7 @@ export class AuthService {
      */
     logout() {
         this.user.next(null);
+        this.profile.next(null);
         this.router.navigate(['/welcome']);
         localStorage.removeItem('userData');
         localStorage.removeItem('userProfile');
@@ -196,6 +197,7 @@ export class AuthService {
         this.http.put(requestLink, profileData).subscribe(response => {
                 //console.log(response);
                 this.profile.next(profileData);
+                console.log(this.profile.getValue());
                 localStorage.setItem('userProfile', JSON.stringify(profileData));
             }, error => {
                 console.log("Error in updateUserProfile");
@@ -220,7 +222,7 @@ export class AuthService {
         //console.log("Adding user: ");
         //console.log(requestLink);
         //console.log(data);
-        this.http.put(requestLink, data).subscribe(/* resData => {console.log(resData)} */);
+        this.http.put(requestLink, data).subscribe();
     }
 
 /*     updateUsername(old_username: string, new_username: string, user_id: string) {
