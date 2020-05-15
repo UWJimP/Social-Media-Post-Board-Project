@@ -244,6 +244,18 @@ export class AuthService {
         });
     } */
 
+    getUser(username: string) {
+        const requestLink = "https://social-media-post-board-data.firebaseio.com/usernames/"
+        + username + ".json";
+        return this.http.get<{user_id: string}>(requestLink);
+    }
+
+    getUserProfile(data: string) {
+        const requestLink = "https://social-media-post-board-data.firebaseio.com/users/"
+        + data + "/profile.json";
+        return this.http.get<Profile>(requestLink);
+    }
+
     /**
      * Checks if the username already exist.
      * 

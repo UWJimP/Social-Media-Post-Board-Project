@@ -16,4 +16,8 @@ export class PostItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  onNameClick() {
+    console.log(this.post.first_name + " " + this.post.last_name + " was clicked.");
+  }
+
 }
