@@ -11,7 +11,6 @@ export class PostItemComponent implements OnInit {
 
   @Input() post: Post;
   @Input() index: number;
-  profileLink: string;
 
   constructor(private route: Router) {}
 
