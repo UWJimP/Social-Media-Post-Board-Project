@@ -14,10 +14,13 @@ export class ProfileComponent implements OnInit {
   profileSub: Subscription;
   private id: string;
   profile: Profile;
+  isLoading: boolean;
 
   constructor(private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.profile = new Profile('', '', '', '');
+    this.isLoading = true;
     this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
@@ -26,6 +29,7 @@ export class ProfileComponent implements OnInit {
           this.authService.getUserProfile(resData.user_id).subscribe(resData => {
             console.log(resData);
             this.profile = resData;
+            this.isLoading = false;
           });
         });
       }

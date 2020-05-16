@@ -20,6 +20,12 @@
     cursor: pointer;
 }
 
+.link-name {
+    cursor: pointer;
+    color: #639bff;
+    
+}
+
 body {
     font-family: 'Helvetica Neue', sans-serif;
 }

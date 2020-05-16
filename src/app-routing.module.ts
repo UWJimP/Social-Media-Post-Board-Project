@@ -10,11 +10,11 @@ import { ProfileComponent } from './app/profile/profile.component';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/welcome', pathMatch: 'full'},
+    {path: 'profile/:id', component: ProfileComponent},
     {path: 'welcome', component: FrontPageComponent},
     {path: 'signup', component: AuthComponent},
     {path: 'settings', component: SettingsComponent},
     {path: 'test', component: TestComponent},
-    {path: 'profile/:id', component: ProfileComponent},
     {path: 'home', 
     component: PostBoardComponent, 
     canActivate:[AuthGuard]
