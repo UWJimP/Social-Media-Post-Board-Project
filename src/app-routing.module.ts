@@ -7,9 +7,11 @@ import { FrontPageComponent } from './app/front-page/front-page.component';
 import { SettingsComponent } from './app/side-menu/settings/settings.component';
 import { TestComponent } from './app/test/test.component';
 import { ProfileComponent } from './app/profile/profile.component';
+import { AboutComponent } from './app/about/about.component';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/welcome', pathMatch: 'full'},
+    {path: 'about', component: AboutComponent},
     {path: 'profile/:id', component: ProfileComponent},
     {path: 'welcome', component: FrontPageComponent},
     {path: 'signup', component: AuthComponent},

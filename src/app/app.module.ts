@@ -24,6 +24,7 @@ import { AlertComponent } from './shared/alert/alert.component';
 import { TestComponent } from './test/test.component';
 import { ConfirmComponent } from './shared/confirm/confirm.component';
 import { DefaultImageDirective } from './shared/default-image.directive';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DefaultImageDirective } from './shared/default-image.directive';
     SettingsComponent,
     AlertComponent,
     TestComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    AboutComponent
   ],
   imports: [
     CommonModule,
