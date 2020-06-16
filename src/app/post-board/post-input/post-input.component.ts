@@ -17,6 +17,7 @@ export class PostInputComponent implements OnInit {
   formTouched = false;
   profile: Profile;
   profileSub:Subscription;
+  defaultMessage: string;
 
   constructor(private postService: PostBoardService, private authService: AuthService) { }
 
@@ -27,7 +28,8 @@ export class PostInputComponent implements OnInit {
     this.profileSub = this.authService.profile.subscribe(profile => 
     {
       this.profile = profile;
-    })
+    });
+    this.defaultMessage = "Enter a message";
   }
 
   /**

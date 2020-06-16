@@ -3,24 +3,31 @@
         <i class="material-icons">home</i> <!-- Icon used for going home -->
     </button>
 </div>
-<div class="mb-4">
+<!-- Implement in the future for Messages -->
+<!-- <div class="mb-4">
     <button class="btn">
-        <i class="material-icons">all_inbox</i> <!-- Icon used for messages -->
+        <i class="material-icons">all_inbox</i>
     </button>
-</div>
+</div> -->
 <div class="mb-4">
-    <button class="btn">
+    <button (click)="onHistory()" class="btn">
         <i class="material-icons">history</i> <!-- Icon used for History -->
     </button>
 </div>
-<div class="mb-4">
+<!-- Implement in the future for Friends -->
+<!-- <div class="mb-4">
     <button class="btn">
-        <i class="material-icons">supervisor_account</i> <!-- Icon used for Friends -->
+        <i class="material-icons">supervisor_account</i>
     </button>
-</div>
+</div> -->
 <div class="mb-4">
     <button class="btn" (click)="onGoSettings()">
         <i class="material-icons">settings</i> <!-- Icon used for Settings -->
+    </button>
+</div>
+<div class="mb-4">
+    <button class="btn" (click)="onGoAbout()">
+        <i class="material-icons">help_outline</i> <!-- Icon used for Settings -->
     </button>
 </div>
 <div class="mb-4">
